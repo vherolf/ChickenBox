@@ -1,0 +1,21 @@
+name = "TOML Chickenbox config"
+
+# copy it to config.toml and change to your settings
+
+[author]
+name = ""
+email = ""
+
+[chickenbox]
+
+[chickenbox.mqttserver]
+url = localhost
+port = 1883
+username = ""
+password = ""
+
+[chickenbox.gate1]
+command = 1
+
+[chickenbox.gate2]
+command = 2
