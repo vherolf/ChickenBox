@@ -1,6 +1,14 @@
 from abc import ABC, abstractmethod
 import paho.mqtt.client as mqtt
 from enum import Enum
+import sys
+
+import toml
+
+with open('config.toml', 'r') as f:
+    config = toml.load(f)
+
+mqttserver = config['chickenbox']['mqttserver']
 
 class DoorIds(Enum):
     FRONT = 1
@@ -25,7 +33,7 @@ class ChickenBoxManager():
         self.mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.mqtt_client.on_message = self.on_message
 
-        self.mqtt_client.connect("TODO", 1883, 60)
+        self.mqtt_client.connect(mqttserver['url'], 1883, 60)
         self.mqtt_client.loop_forever()
 
     def on_message(self, client, userdata, message):
@@ -106,3 +114,9 @@ class ResetState(ChickenBoxState):
 
     def experiment_finished(self):
         pass
+
+
+
+if __name__ == '__main__':
+    ChickenBoxManager()
+    sys.exit(main())
